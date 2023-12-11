@@ -1,12 +1,9 @@
-// this file is for the notes that are going to be used in the creation
-// of the songs
-// we are going to define constants 
 #ifndef notes_included
 #define notes_included
 
 // Freq = 2Mhz / cycles; 2Mhz being the clock
 // eq 2*10^6 / freq of note in hrtz
-
+//dictionary
 #define FSH 2702
 #define D 3405
 #define CSH 3607

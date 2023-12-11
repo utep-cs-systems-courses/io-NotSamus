@@ -1,26 +1,37 @@
-# makfile configuration
-COMMON_OBJECTS  =
+# Makefile configuration
+
+COMMON_OBJECTS  = MainFile.o switches.o buzzer.o 
+
 CPU             = msp430g2553
-CFLAGS          = -mmcu=${CPU} -I../h -L/opt/ti/msp430_gcc/include
+
+CFLAGS          = -mmcu=${CPU} -I../h
+
+LDFLAGS		= -L/opt/ti/msp430_gcc/include
 
 #switch the compiler (for the internal make rules)
 CC              = msp430-elf-gcc
 AS              = msp430-elf-as
 
-all: buzzer.elf
+all: project-c.elf project-s.elf
+
 #additional rules for files
-buzzer.elf: ${COMMON_OBJECTS} buzzer.o buzzerMain.o lcddraw.o lcdutils.o libTimer.a
-		${CC} ${CFLAGS} -o $@ $^
 
-load: buzzer.elf
-	msp430loader.sh  $^
+project-c.elf: ${COMMON_OBJECTS} led-c.o
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ libTimer.a
 
-clean: $^
-	rm -f *.o *.elf
+project-s.elf: ${COMMON_OBJECTS} led-s.o
+	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ libTimer.a
 
-lcdutils.c: lcdutils.h
-buzzer.c: buzzer.h
-lcddraw.c: lcddraw.h
-buzzerMain.c: buzzer.h lcdutils.h lcddraw.h
+load-c: project-c.elf
+	msp430loader.sh $^
 
+load-s: project-s.elf
+	msp430loader.sh $^
 
+clean:
+	rm -f *.o *.elf *~
+
+Mainfile.o: led.h notes.h
+led-c.o: led.h
+wdInterruptHandler.o:  led.h
+led-c.o: led.h led-c.c
