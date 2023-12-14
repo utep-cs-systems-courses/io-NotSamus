@@ -49,19 +49,16 @@ void set_switches_states(){
   switch_states[4] = 0;
 }
 
+//this is the interrupt for port 1
 void __interrupt_vec(PORT1_VECTOR) Port_1(){
-  
-  if (P1IFG & SW1) {      /* did a button cause this interrupt? */
-    P1IFG &= ~SW1;/* clear pending sw interrupts */
-    switch_states[0] = 1;
-    switch_interrupt_handler();/* single handler for all switches */
-
+  if (P1IFG & SW1) {    
+    P1IFG &= ~SW1;
+    switch_states[0] = 1
+    switch_interrupt_handler();
   }
-
 }
 
 void __interrupt_vec(PORT2_VECTOR) Port_2(){
-  
   if(P2IFG & SW2){
     P2IFG &= ~SW2;
     switch_states[1] = 1;

@@ -1,7 +1,7 @@
 #ifndef SWITCH_INCLUDED
 #define SWITCH_INCLUDED
 
-#define SW1 BIT3
+#define SW1 BIT3 //is the button on the board on p1.3
 #define SW2 BIT0
 #define SW3 BIT1
 #define SW4 BIT2

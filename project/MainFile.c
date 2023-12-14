@@ -4,8 +4,7 @@
 #include "switches.h"
 #include "buzzer.h"
 #include "notes.h"
-//DISCLAIMER: the songs does not quite get to the original song
-//temp variable (testing purposes)
+
 int temp = 0;
 
 //Holds the switches states 1 or 0
@@ -43,7 +42,7 @@ void play_neonGravestones(int melody[], float duration[],char play_m){
 }
 // Shy away by twenty one pilots
 void play_shy_away(int melody[], float duration[],char play_m){
-
+  //s is for shy away
   if (play_m == 's') {
     play_note(melody[temp] * 3,duration[temp]);
     temp++;
@@ -172,7 +171,7 @@ void __interrupt_vec(WDT_VECTOR) WDT(){    /* 250 interrupts/sec */
   }
   
 
-  
+  //if (1)
   else if(states[3]){
     toggle_green();
     play_shy_away(shMelody,shDuration,'s');
